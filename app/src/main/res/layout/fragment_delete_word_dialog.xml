@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+
+    <TextView
+        android:id="@+id/del_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Do you want to delete this word pair?"/>
+    <TextView
+        android:id="@+id/flag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/del_title"/>
+    <TextView
+        android:id="@+id/del_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flag"
+        />
+    <TextView
+        android:id="@+id/del_translate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/del_word"/>
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/del_translate"
+        android:layout_alignParentEnd="true"
+        android:text="Delete"/>
+
+</RelativeLayout>
