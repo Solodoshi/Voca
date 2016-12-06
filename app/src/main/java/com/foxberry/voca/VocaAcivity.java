@@ -14,17 +14,17 @@ import android.view.View;
 public class VocaAcivity extends AppCompatActivity {
 
     VocaTabFragment vocaTabFragment;
+    View languageSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (savedInstanceState == null) {
-            vocaTabFragment = (VocaTabFragment)
-                    getFragmentManager().findFragmentById(R.id.frag_voca_tab);
-        }
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        vocaTabFragment = (VocaTabFragment) getFragmentManager()
+                .findFragmentById(R.id.frag_voca_tab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

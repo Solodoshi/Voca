@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white_green"
     tools:context="com.foxberry.voca.VocaAcivity">
 
     <RelativeLayout
@@ -44,10 +45,15 @@
         app:rippleColor="@color/theme_color_green" />
 
     <TextView
+        android:id="@+id/language_switch"
         android:layout_width="150dp"
         android:layout_height="70dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
         android:background="@color/theme_color_green"
-        android:textColor=""/>
+        android:textSize="30sp"
+        android:textColor="@color/white_green"
+        android:text="en-ua"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
