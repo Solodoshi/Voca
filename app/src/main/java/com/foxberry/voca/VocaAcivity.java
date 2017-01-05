@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +31,8 @@ public class VocaAcivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add ( R.id.fragmentContainer, vocaTabFragment);
         fragmentTransaction.commit();
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.voca_shared_pref), MODE_PRIVATE);
+        binding.languageSwitch.setText(sharedPreferences.getString(getString(R.string.current_language), Constants.languages[0]));
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +81,9 @@ public class VocaAcivity extends AppCompatActivity {
         bundle.putParcelable("callback", vocaTabFragment.callback);
         newFragment.setArguments(bundle);
         newFragment.show(ft, "dialog");
+    }
 
+    public void changeLanguage(String languagePair){
+        binding.languageSwitch.setText(languagePair);
     }
 }

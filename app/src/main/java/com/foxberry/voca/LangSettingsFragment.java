@@ -3,25 +3,23 @@ package com.foxberry.voca;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.foxberry.voca.R;
 import com.foxberry.voca.databinding.FragmentLangSetBinding;
 
 public class LangSettingsFragment extends Fragment {
     private FragmentLangSetBinding binding;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -29,12 +27,17 @@ public class LangSettingsFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_lang_set, container, false);
         View root = binding.getRoot();
         binding.languagePair.setAdapter(new LanguageSettingsAdapter());
-//        binding.languagePair.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                //TODO language selected: highlight new lang pass if it had been changed on backpressed
-//            }
-//        });
+        binding.languagePair.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("LanguagesFragment", "new language is " + Constants.languages[i]);
+                sharedPreferences = getActivity().getSharedPreferences(getString(R.string.voca_shared_pref), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.current_language), Constants.languages[i]);
+                editor.apply();
+                ((VocaAcivity) getActivity()).changeLanguage(Constants.languages[i]);
+            }
+        });
         return root;
     }
 
@@ -69,14 +72,6 @@ public class LangSettingsFragment extends Fragment {
                 viewHolder = (LangSettingsFragment.ViewHolder) view.getTag();
             }
             viewHolder.langPair.setText(Constants.languages[position]);
-            viewHolder.langPair.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    notifyDataSetChanged();
-                    //TODO: set new current language (Shared pref?)
-
-                }
-            });
             return view;
         }
     }
@@ -84,7 +79,7 @@ public class LangSettingsFragment extends Fragment {
     private class ViewHolder {
         TextView langPair;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             langPair = (TextView) view.findViewById(R.id.language);
         }
     }

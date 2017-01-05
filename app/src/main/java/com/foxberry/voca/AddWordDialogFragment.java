@@ -33,7 +33,6 @@ public class AddWordDialogFragment extends DialogFragment {
     DatabaseHelper databaseHelper;
     static Callback callback;
     private List<String> synonyms = new ArrayList<>();
-    static String translate = "translate1";
     SynonymsListAdapter adapter;
     EditText word;
     Button buttonAdd;
@@ -87,7 +86,7 @@ public class AddWordDialogFragment extends DialogFragment {
 
     private void translateWord(String word) {
         Call<TranslateWrapper> call = api.getTranslateWrapper(Constants.YANDEX_TRANSLATE_KEY,
-                "en-uk", word);
+                getActivity().getSharedPreferences(getString(R.string.voca_shared_pref),Context.MODE_PRIVATE).getString(getString(R.string.current_language), Constants.languages[0]), word);
         call.enqueue(new retrofit2.Callback<TranslateWrapper>() {
             @Override
             public void onResponse(Call<TranslateWrapper> call, Response<TranslateWrapper> response) {
@@ -97,7 +96,6 @@ public class AddWordDialogFragment extends DialogFragment {
                     adapter.notifyDataSetChanged();
                     buttonAdd.setVisibility(View.VISIBLE);
                 }
-//                TODO: no translate
             }
 
             @Override
