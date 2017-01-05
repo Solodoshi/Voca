@@ -34,7 +34,7 @@ public class VocaTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         databaseHelper = new DatabaseHelper(getActivity());
         translateUnits = databaseHelper.getAllWordPairs();
-        View view = inflater.inflate(R.layout.frag_voca_tab, container);
+        View view = inflater.inflate(R.layout.frag_voca_tab, container,false);
         listView = (ListView) view.findViewById(R.id.list_voca);
         adapter = new VocaTabAdapter();
         listView.setAdapter(adapter);
