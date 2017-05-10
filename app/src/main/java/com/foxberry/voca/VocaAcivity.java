@@ -7,9 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +45,7 @@ public class VocaAcivity extends AppCompatActivity {
                 fragmentTransaction1.replace(R.id.fragmentContainer, new LangSettingsFragment());
                 fragmentTransaction1.addToBackStack(null);
                 fragmentTransaction1.commit();
+                binding.languageSwitch.setClickable(false);
 
             }
         });
@@ -83,7 +82,14 @@ public class VocaAcivity extends AppCompatActivity {
         newFragment.show(ft, "dialog");
     }
 
-    public void changeLanguage(String languagePair){
-        binding.languageSwitch.setText(languagePair);
+    public void changeLanguage(){
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.voca_shared_pref), MODE_PRIVATE);
+        binding.languageSwitch.setText(sharedPreferences.getString(getString(R.string.current_language), "en") + "-" + sharedPreferences.getString(getString(R.string.current_translate), "uk")  );
+    }
+
+    @Override
+    public void onBackPressed() {
+        binding.languageSwitch.setClickable(true);
+        super.onBackPressed();
     }
 }

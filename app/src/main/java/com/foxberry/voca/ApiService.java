@@ -17,13 +17,17 @@ public class ApiService {
 
     interface Api {
         @GET("dicservice.json/lookup")
-//        Call<List<TranslateWrapper>> getTranslateWrapper(
                 Call<TranslateWrapper> getTranslateWrapper(
                 @Query("key") String key,
                 @Query("lang") String lang,
                 @Query("text") String text
         );
+        @GET("dicservice.json/getLangs")
+        Call<List<String>> getLanguages(
+                @Query("key") String key
+        );
     }
+
      public static Api getApiService(){
          HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
          loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
